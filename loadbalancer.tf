@@ -1,27 +1,15 @@
-resource "yandex_lb_target_group" "lb-tg-a" {
+resource "yandex_lb_target_group" "lb-tg" {
     name = "${local.preffix}target-group"
     labels = var.labels
-    region_id = var.regions[0]
+    region_id = "ru-central1"
     target {
       subnet_id = yandex_vpc_subnet.sn1.id
       address = yandex_compute_instance.vm1.network_interface[0].ip_address
     }
-}
-
-resource "yandex_lb_target_group" "lb-tg-b" {
-    name = "${local.preffix}target-group"
-    labels = var.labels
-    region_id = var.regions[1]
     target {
       subnet_id = yandex_vpc_subnet.sn2.id
       address = yandex_compute_instance.vm2.network_interface[0].ip_address
     }
-}
-
-resource "yandex_lb_target_group" "lb-tg-d" {
-    name = "${local.preffix}target-group"
-    labels = var.labels
-    region_id = var.regions[2]
     target {
       subnet_id = yandex_vpc_subnet.sn3.id
       address = yandex_compute_instance.vm3.network_interface[0].ip_address
@@ -29,7 +17,7 @@ resource "yandex_lb_target_group" "lb-tg-d" {
 }
 
 resource "yandex_lb_network_load_balancer" "lb-nlb" {
-    name = "${local.preffix}network-lb"
+    name = "${local.preffix}nlb"
     labels = var.labels
 
     listener {

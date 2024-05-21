@@ -45,15 +45,10 @@ variable "nlb_healthcheck" {
   type = object({
     name = string
     port = number
-    port = string
+    path = string
   })
 }
 
 locals {
   preffix = "slurm-"
-  nlb_healthcheck = {
-    name   = "test"
-    port   = 80
-    path   = "/"
-}
 }

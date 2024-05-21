@@ -33,3 +33,7 @@ output "nat_ip_address_vm2" {
 output "nat_ip_address_vm3" {
   value = yandex_compute_instance.vm3.network_interface[0].nat_ip_address
 }
+
+output "lb_external_ip" {
+  value = yandex_lb_target_group.lb-tg.target
+}
