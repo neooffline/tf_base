@@ -1,5 +1,5 @@
 resource "yandex_compute_instance" "vm1" {
-  name = "vm${var.vm_number_1}"
+  name = "${local.preffix}vm${var.vm_number_1}"
   platform_id = "standard-v1"
   zone = "ru-central1-a"
 
@@ -23,7 +23,7 @@ resource "yandex_compute_instance" "vm1" {
 }
 
 resource "yandex_compute_instance" "vm2" {
-  name = "vm${var.vm_number_2}"
+  name = "${local.preffix}vm${var.vm_number_2}"
   platform_id = "standard-v1"
   zone = "ru-central1-b"
   
@@ -45,7 +45,7 @@ resource "yandex_compute_instance" "vm2" {
 }
 
 resource "yandex_compute_instance" "vm3" {
-  name = "vm${var.vm_number_3}"
+  name = "${local.preffix}vm${var.vm_number_3}"
   platform_id = "standard-v2"
   zone = "ru-central1-d"
   

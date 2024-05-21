@@ -17,3 +17,7 @@ variable "vm_number_3" {
   type = number
   description = "Index of vm3"
 }
+
+locals {
+  preffix = "slurm-"
+}
