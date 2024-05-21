@@ -6,14 +6,14 @@ resource "yandex_compute_instance" "vm1" {
   allow_stopping_for_update = true
 
   resources {
-    cores = 2
-    memory = 4
+    cores = var.resources.cpu
+    memory = var.resources.memory
   }
   
   boot_disk {
     initialize_params {
       image_id = var.image_id
-      size = 10
+      size = var.resources.disk
     }
   }
 
@@ -28,14 +28,14 @@ resource "yandex_compute_instance" "vm2" {
   zone = "ru-central1-b"
   
   resources {
-    cores = 2
-    memory = 2
+    cores = var.resources.cpu
+    memory = var.resources.memory
   }
   
   boot_disk {
     initialize_params {
       image_id = var.image_id
-      size = 10
+      size = var.resources.disk
     }
   }
 
@@ -50,14 +50,14 @@ resource "yandex_compute_instance" "vm3" {
   zone = "ru-central1-d"
   
   resources {
-    cores = 2
-    memory = 2
+    cores = var.resources.cpu
+    memory = var.resources.memory
   }
   
   boot_disk {
     initialize_params {
       image_id = var.image_id
-      size = 10
+      size = var.resources.disk
     }
   }
 

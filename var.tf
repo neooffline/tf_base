@@ -18,6 +18,25 @@ variable "vm_number_3" {
   description = "Index of vm3"
 }
 
+variable "labels" {
+  type = map(string)
+  description = "Default labels for resources"
+}
+
+variable "resources" {
+  type = object({
+    cpu =  number
+    disk = number
+    memory = number
+  })
+  description = "Resources props"
+}
+
+variable "cidr_blocks" {
+  type = list(list(string))
+  description = "Subnet cidr blocks"
+}
+
 locals {
   preffix = "slurm-"
 }
