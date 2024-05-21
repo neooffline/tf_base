@@ -3,15 +3,11 @@ resource "yandex_compute_instance" "vm1" {
   platform_id = "standard-v1"
   zone = "ru-central1-a"
 
-  labels = {
-    "app" = "my-app-1"
-  }
-
   allow_stopping_for_update = true
 
   resources {
-    cores = 4
-    memory = 8
+    cores = 2
+    memory = 4
   }
   
   boot_disk {
@@ -39,7 +35,7 @@ resource "yandex_compute_instance" "vm2" {
   boot_disk {
     initialize_params {
       image_id = "fd82tb3u07rkdkfte3dn"
-      size = 20
+      size = 10
     }
   }
 
