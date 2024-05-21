@@ -1,5 +1,5 @@
 resource "yandex_compute_instance" "vm1" {
-  name = "vm1"
+  name = "vm${var.vm_number_1}"
   platform_id = "standard-v1"
   zone = "ru-central1-a"
 
@@ -12,7 +12,7 @@ resource "yandex_compute_instance" "vm1" {
   
   boot_disk {
     initialize_params {
-      image_id = "fd82tb3u07rkdkfte3dn"
+      image_id = var.image_id
       size = 10
     }
   }
@@ -23,7 +23,7 @@ resource "yandex_compute_instance" "vm1" {
 }
 
 resource "yandex_compute_instance" "vm2" {
-  name = "vm2"
+  name = "vm${var.vm_number_2}"
   platform_id = "standard-v1"
   zone = "ru-central1-b"
   
@@ -34,7 +34,7 @@ resource "yandex_compute_instance" "vm2" {
   
   boot_disk {
     initialize_params {
-      image_id = "fd82tb3u07rkdkfte3dn"
+      image_id = var.image_id
       size = 10
     }
   }
@@ -45,7 +45,7 @@ resource "yandex_compute_instance" "vm2" {
 }
 
 resource "yandex_compute_instance" "vm3" {
-  name = "vm3"
+  name = "vm${var.vm_number_3}"
   platform_id = "standard-v2"
   zone = "ru-central1-d"
   
@@ -56,7 +56,7 @@ resource "yandex_compute_instance" "vm3" {
   
   boot_disk {
     initialize_params {
-      image_id = "fd82tb3u07rkdkfte3dn"
+      image_id = var.image_id
       size = 10
     }
   }
