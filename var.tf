@@ -37,6 +37,23 @@ variable "cidr_blocks" {
   description = "Subnet cidr blocks"
 }
 
+variable "regions" {
+  type = list(string)
+}
+
+variable "nlb_healthcheck" {
+  type = object({
+    name = string
+    port = number
+    port = string
+  })
+}
+
 locals {
   preffix = "slurm-"
+  nlb_healthcheck = {
+    name   = "test"
+    port   = 80
+    path   = "/"
+}
 }
