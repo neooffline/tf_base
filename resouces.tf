@@ -21,6 +21,10 @@ resource "yandex_compute_instance" "vm1" {
     subnet_id = yandex_vpc_subnet.sn1.id
     nat = true
   }
+
+  metadata = {
+    ssh-keys = "centos:${file("~/.ssh/slurm_edu.pub")}"
+  }
 }
 
 resource "yandex_compute_instance" "vm2" {
@@ -44,6 +48,9 @@ resource "yandex_compute_instance" "vm2" {
     subnet_id = yandex_vpc_subnet.sn2.id
     nat = true
   }
+  metadata = {
+    ssh-keys = "centos:${file("~/.ssh/slurm_edu.pub")}"
+  }
 }
 
 resource "yandex_compute_instance" "vm3" {
@@ -66,5 +73,8 @@ resource "yandex_compute_instance" "vm3" {
   network_interface {
     subnet_id = yandex_vpc_subnet.sn3.id
     nat = true
+  }
+  metadata = {
+    ssh-keys = "centos:${file("~/.ssh/slurm_edu.pub")}"
   }
 }
