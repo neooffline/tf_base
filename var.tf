@@ -37,7 +37,7 @@ variable "cidr_blocks" {
   description = "Subnet cidr blocks"
 }
 
-variable "regions" {
+variable "zones" {
   type = list(string)
 }
 

@@ -1,7 +1,7 @@
 resource "yandex_compute_instance" "vm1" {
   name = "${local.preffix}vm${var.vm_number_1}"
   platform_id = "standard-v1"
-  zone = "ru-central1-a"
+  zone = var.zones[0]
 
   allow_stopping_for_update = true
 
@@ -30,7 +30,7 @@ resource "yandex_compute_instance" "vm1" {
 resource "yandex_compute_instance" "vm2" {
   name = "${local.preffix}vm${var.vm_number_2}"
   platform_id = "standard-v1"
-  zone = "ru-central1-b"
+  zone = var.zones[1]
   
   resources {
     cores = var.resources.cpu
@@ -56,7 +56,7 @@ resource "yandex_compute_instance" "vm2" {
 resource "yandex_compute_instance" "vm3" {
   name = "${local.preffix}vm${var.vm_number_3}"
   platform_id = "standard-v2"
-  zone = "ru-central1-d"
+  zone = var.zones[2]
   
   resources {
     cores = var.resources.cpu

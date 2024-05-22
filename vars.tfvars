@@ -26,7 +26,7 @@ nlb_healthcheck = {
     "path"="/"
 }
 
-regions = [ 
+zones = [ 
     "ru-central1-a",
     "ru-central1-b",
     "ru-central1-d"
