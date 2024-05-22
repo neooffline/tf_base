@@ -1,10 +1,11 @@
 resource "yandex_lb_target_group" "lb-tg" {
+    for_each = toset(var.zones)
     name = "${local.preffix}target-group"
     labels = var.labels
     region_id = "ru-central1"
     target {
-      subnet_id = yandex_vpc_subnet.this[0].id
-      address = yandex_compute_instance.this[0].network_interface[0].ip_address
+      subnet_id = yandex_vpc_subnet.this[each.value].id
+      address = yandex_compute_instance.this[index(var.zones,each.value)].network_interface[0].ip_address
     }
     target {
       subnet_id = yandex_vpc_subnet.this[1].id

@@ -32,4 +32,6 @@ zones = [
     "ru-central1-d"
     ]
 
+vm_count = 6
+
 public_key_path = "~/.ssh/slurm_edu.pub"

@@ -54,6 +54,17 @@ variable "public_key_path" {
   default = ""
 }
 
+variable "vpc_id" {
+  type = string
+  description = "VPC ID"
+  default = ""
+}
+
+variable "vm_count" {
+  type = number
+  description = "Number of VMs"
+}
+
 locals {
   preffix = "slurm-"
 }

@@ -1,8 +1,8 @@
 resource "yandex_compute_instance" "this" {
-  count = 3
+  count = var.vm_count
   name = "${local.preffix}vm${count.index + 1}"
-  platform_id = var.zones[count.index] != "ru-central1-d" ? "standard-v1" : "standard-v2"
-  zone = var.zones[count.index]
+  platform_id = var.zones[count.index % length(var.zones)] != "ru-central1-d" ? "standard-v1" : "standard-v2"
+  zone = var.zones[count.index % length(var.zones)]
 
   allow_stopping_for_update = true
 
@@ -19,7 +19,7 @@ resource "yandex_compute_instance" "this" {
   }
 
   network_interface {
-    subnet_id = yandex_vpc_subnet.this[count.index].id
+    subnet_id = yandex_vpc_subnet.this[var.zones[count.index % length(var.zones)]].id
     nat = true
   }
 
