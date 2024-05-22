@@ -1,27 +1,12 @@
-resource "yandex_vpc_network" "nw1" {
+resource "yandex_vpc_network" "this" {
   name = "${local.preffix}nw1"
 }
 
-resource "yandex_vpc_subnet" "sn1" {
-  name = "${local.preffix}sn1"
-  zone = var.zones[0]
-  network_id = yandex_vpc_network.nw1.id
-  v4_cidr_blocks = var.cidr_blocks[0]
-  labels = var.labels
-}
-
-resource "yandex_vpc_subnet" "sn2" {
-  name = "${local.preffix}sn2"
-  zone = var.zones[1]
-  network_id = yandex_vpc_network.nw1.id
-  v4_cidr_blocks = var.cidr_blocks[1]
-  labels = var.labels
-}
-
-resource "yandex_vpc_subnet" "sn3" {
-  name = "${local.preffix}sn3"
-  zone = var.zones[2]
-  network_id = yandex_vpc_network.nw1.id
-  v4_cidr_blocks = var.cidr_blocks[2]
+resource "yandex_vpc_subnet" "this" {
+  count = 3
+  name = "${local.preffix}sn${count.index + 1}"
+  zone = var.zones[count.index]
+  network_id = yandex_vpc_network.this.id
+  v4_cidr_blocks = var.cidr_blocks[count.index]
   labels = var.labels
 }

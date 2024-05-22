@@ -3,16 +3,16 @@ resource "yandex_lb_target_group" "lb-tg" {
     labels = var.labels
     region_id = "ru-central1"
     target {
-      subnet_id = yandex_vpc_subnet.sn1.id
-      address = yandex_compute_instance.vm1.network_interface[0].ip_address
+      subnet_id = yandex_vpc_subnet.this[0].id
+      address = yandex_compute_instance.this[0].network_interface[0].ip_address
     }
     target {
-      subnet_id = yandex_vpc_subnet.sn2.id
-      address = yandex_compute_instance.vm2.network_interface[0].ip_address
+      subnet_id = yandex_vpc_subnet.this[1].id
+      address = yandex_compute_instance.this[1].network_interface[0].ip_address
     }
     target {
-      subnet_id = yandex_vpc_subnet.sn3.id
-      address = yandex_compute_instance.vm3.network_interface[0].ip_address
+      subnet_id = yandex_vpc_subnet.this[2].id
+      address = yandex_compute_instance.this[2].network_interface[0].ip_address
     }
 }
 
