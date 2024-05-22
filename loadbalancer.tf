@@ -1,19 +1,14 @@
-resource "yandex_lb_target_group" "lb-tg" {
-    for_each = toset(var.zones)
+resource "yandex_lb_target_group" "this" {    
     name = "${local.preffix}target-group"
     labels = var.labels
     region_id = "ru-central1"
-    target {
-      subnet_id = yandex_vpc_subnet.this[each.value].id
-      address = yandex_compute_instance.this[index(var.zones,each.value)].network_interface[0].ip_address
-    }
-    target {
-      subnet_id = yandex_vpc_subnet.this[1].id
-      address = yandex_compute_instance.this[1].network_interface[0].ip_address
-    }
-    target {
-      subnet_id = yandex_vpc_subnet.this[2].id
-      address = yandex_compute_instance.this[2].network_interface[0].ip_address
+    dynamic "target" {
+      for_each = yandex_compute_instance.this
+      content {
+        subnet_id = target.value.network_interface[0].subnet_id
+        address = target.value.network_interface[0].ip_address  
+      }
+      
     }
 }
 
@@ -30,7 +25,7 @@ resource "yandex_lb_network_load_balancer" "lb-nlb" {
     }
 
     attached_target_group {
-      target_group_id = "${yandex_lb_target_group.lb-tg.id}"
+      target_group_id = "${yandex_lb_target_group.this.id}"
       healthcheck {
         name = "${local.preffix}${var.nlb_healthcheck.name}"
         http_options {
