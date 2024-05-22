@@ -23,7 +23,7 @@ resource "yandex_compute_instance" "vm1" {
   }
 
   metadata = {
-    ssh-keys = "centos:${file("~/.ssh/slurm_edu.pub")}"
+    ssh-keys = var.public_key_path != "" ? "centos:${file(var.public_key_path)}" : "centos:${tls_private_key.vm_pk.public_key_openssh}"
   }
 }
 
@@ -49,7 +49,7 @@ resource "yandex_compute_instance" "vm2" {
     nat = true
   }
   metadata = {
-    ssh-keys = "centos:${file("~/.ssh/slurm_edu.pub")}"
+    ssh-keys = var.public_key_path != "" ? "centos:${file(var.public_key_path)}" : "centos:${tls_private_key.vm_pk.public_key_openssh}"
   }
 }
 
@@ -75,6 +75,6 @@ resource "yandex_compute_instance" "vm3" {
     nat = true
   }
   metadata = {
-    ssh-keys = "centos:${file("~/.ssh/slurm_edu.pub")}"
+    ssh-keys = var.public_key_path != "" ? "centos:${file(var.public_key_path)}" : "centos:${tls_private_key.vm_pk.public_key_openssh}"
   }
 }

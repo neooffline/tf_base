@@ -31,3 +31,5 @@ zones = [
     "ru-central1-b",
     "ru-central1-d"
     ]
+
+public_key_path = "~/.ssh/slurm_edu.pub"

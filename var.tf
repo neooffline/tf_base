@@ -49,6 +49,11 @@ variable "nlb_healthcheck" {
   })
 }
 
+variable "public_key_path" {
+  type = string
+  default = ""
+}
+
 locals {
   preffix = "slurm-"
 }

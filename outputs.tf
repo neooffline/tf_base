@@ -37,3 +37,12 @@ output "nat_ip_address_vm3" {
 output "lb_external_ip" {
   value = yandex_lb_target_group.lb-tg.target
 }
+
+output "priv_key" {
+  value = var.public_key_path != "" ? "" : tls_private_key.vm_pk.private_key_openssh
+  sensitive = true
+}
+
+output "pub_key" {
+  value = var.public_key_path != "" ? "" : tls_private_key.vm_pk.public_key_openssh
+}
