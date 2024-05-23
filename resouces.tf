@@ -27,21 +27,21 @@ resource "yandex_compute_instance" "this" {
     nat = true
   }
 
-  provisioner "remote-exec" {
-    inline = ["ping -c 2 ya.ru"]
+  # provisioner "remote-exec" {
+  #   inline = ["ping -c 2 ya.ru"]
 
-    connection {
-      host = self.network_interface[0].nat_ip_address
-      type = "ssh"
-      user = "${split("-",var.image_family)[0]}"
-      private_key = "${file("~/.ssh/slurm_edu")}"
-      agent = false
-      timeout = "65s"
-    }
-  }
+  #   connection {
+  #     host = self.network_interface[0].nat_ip_address
+  #     type = "ssh"
+  #     user = "${split("-",var.image_family)[0]}"
+  #     private_key = "${file("~/.ssh/slurm_edu")}"
+  #     agent = false
+  #     timeout = "65s"
+  #   }
+  # }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -u ${split("-",var.image_family)[0]} -i '${self.network_interface[0].nat_ip_address},' ansible/palaybook.yml"
+    command = "ansible-playbook -u ${split("-",var.image_family)[0]} -i '${self.network_interface[0].nat_ip_address},' --private-key '~/.ssh/slurm_edu' ansible/playbook.yml"
 
     environment = {
       ANSIBLE_HOST_KEY_CHECKING = "False"
