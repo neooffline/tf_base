@@ -65,6 +65,10 @@ variable "vm_count" {
   description = "Number of VMs"
 }
 
+variable "image_family" {
+  type = string
+  description = "Base image family"
+}
 locals {
   preffix = "slurm-"
 }

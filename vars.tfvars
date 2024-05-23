@@ -32,6 +32,8 @@ zones = [
     "ru-central1-d"
     ]
 
-vm_count = 6
+vm_count = 2
+
+image_family = "debian-11"
 
 public_key_path = "~/.ssh/slurm_edu.pub"

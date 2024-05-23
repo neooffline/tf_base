@@ -1,3 +1,7 @@
+data "yandex_compute_image" "this" {
+  family = var.image_family
+}
+
 resource "yandex_compute_instance" "this" {
   count = var.vm_count
   name = "${local.preffix}vm${count.index + 1}"
@@ -13,7 +17,7 @@ resource "yandex_compute_instance" "this" {
   
   boot_disk {
     initialize_params {
-      image_id = var.image_id
+      image_id = data.yandex_compute_image.this.id
       size = var.resources.disk
     }
   }
@@ -24,6 +28,6 @@ resource "yandex_compute_instance" "this" {
   }
 
   metadata = {
-    ssh-keys = var.public_key_path != "" ? "centos:${file(var.public_key_path)}" : "centos:${tls_private_key.vm_pk[0].public_key_openssh}"
+    ssh-keys = var.public_key_path != "" ? "${split(var.image_family,"-")[0]}:${file(var.public_key_path)}" : "${split(var.image_family,"-")[0]}:${tls_private_key.vm_pk[0].public_key_openssh}"
   }
 }
