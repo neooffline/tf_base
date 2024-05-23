@@ -27,7 +27,28 @@ resource "yandex_compute_instance" "this" {
     nat = true
   }
 
+  provisioner "remote-exec" {
+    inline = ["ping -c 2 ya.ru"]
+
+    connection {
+      host = self.network_interface[0].nat_ip_address
+      type = "ssh"
+      user = "${split("-",var.image_family)[0]}"
+      private_key = "${file("~/.ssh/slurm_edu")}"
+      agent = false
+      timeout = "65s"
+    }
+  }
+
+  provisioner "local-exec" {
+    command = "ansible-playbook -u ${split("-",var.image_family)[0]} -i '${self.network_interface[0].nat_ip_address},' ansible/palaybook.yml"
+
+    environment = {
+      ANSIBLE_HOST_KEY_CHECKING = "False"
+    }
+  }
+
   metadata = {
-    ssh-keys = var.public_key_path != "" ? "${split(var.image_family,"-")[0]}:${file(var.public_key_path)}" : "${split(var.image_family,"-")[0]}:${tls_private_key.vm_pk[0].public_key_openssh}"
+    ssh-keys = var.public_key_path != "" ? "${split("-",var.image_family)[0]}:${file(var.public_key_path)}" : "${split("-",var.image_family)[0]}:${tls_private_key.vm_pk[0].public_key_openssh}"
   }
 }

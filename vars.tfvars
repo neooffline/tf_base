@@ -34,6 +34,6 @@ zones = [
 
 vm_count = 2
 
-image_family = "debian-11"
+image_family = "centos-7"
 
 public_key_path = "~/.ssh/slurm_edu.pub"
